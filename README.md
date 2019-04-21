@@ -5,7 +5,7 @@ An application that implements a custom Splunk command, `rerun`, and a simple Da
 
 # Purpose
 
-Rerun scheduled searches in Splunk for a specified "outage" period.
+Rerun scheduled searches in Splunk for a specified "outage" period and trigger the saved actions.
            
 The rerun command will find searches by matching title to user specified regex. The command will use the search's cron schedule to find times the search would have ran during the "outage" period. It will set earliest and latest to the scheduled run time to emulate as if Splunk was actually running the search at the scheduled time. The command can also trigger any actions for the search.
 
@@ -15,7 +15,7 @@ For Example:
 
 # Why?
 
-This command was written to help recover from any Splunk issues that may have caused Alerts and Reports to not run or return incomplete or incorrect results.
+This command was written to help recover from any Splunk issues that may have caused Alerts and Reports to not run or return incomplete or incorrect results. The main benefit of this is to trigger search actions with the same results that "should" have been triggered hsd the search ran correctly at the scheduled time.
 
 Often when rerunning scheduled alerts or reports for the situations above it is not as easy as just opening in search and extending the time range. Reports may be getting statistics for specific time intervals and modifying the searches to account for this can become time consuming. Another problem with manually rerunning searches is many alerts and reports could have different trigger actions or results may be sent to different groups. The rerun command helps automatically handle the problems. 
 
