@@ -10,6 +10,7 @@ Rerun scheduled searches in Splunk for a specified "outage" period.
 The rerun command will find searches by matching title to user specified regex. The command will use the search's cron schedule to find times the search would have ran during the "outage" period. It will set earliest and latest to the scheduled run time to emulate as if Splunk was actually running the search at the scheduled time. The command can also trigger any actions for the search.
 
 For Example:
+
 "TEST-0001-test search" is scheduled to run everyday at 04:00 with the Timerange of "Yesterday" (earliest=-1d@d latest=@d). If the rerun command was run with an outage period of 01/01/2019 - 01/03/2019, The "TEST-0001-test search" would be run for the scheduled time of 01/01/2019 04:00 with earliest 12/31/2018 00:00 and latest 01/01/2019 00:00 and the scheduled time of 01/02/2019 04:00 with earliest 01/01/2019 00:00 and latest 01/02/2019 00:00.
 
 # Why?
@@ -31,7 +32,8 @@ Example Situations:
 
 # Setup
 
-* Copy this application to a new folder in your `$SPLUNK_HOME$\etc\apps\` folder.
+* Clone this repository
+* Copy the splunk_rerun_app directory to a new folder in your `$SPLUNK_HOME$\etc\apps\` folder.
 * Restart your splunk instance so the the app is loaded.
 
 OR
@@ -67,9 +69,3 @@ Rerun all saved searches to compare result count with what was actually received
 # Issues
 
 * Results are not returned until search is complete or script has exited.
-
-
-
-
-
-
