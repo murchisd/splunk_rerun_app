@@ -1,0 +1,42 @@
+<form>
+  <label>Splunk Rerun</label>
+  <description>Dashboard for to help use rerun command</description>
+  <fieldset submitButton="true" autoRun="false">
+    <input type="text" token="regex">
+      <label>Search Regex</label>
+      <default></default>
+    </input>
+    <input type="time" token="time">
+      <label>Outage Period</label>
+      <default>
+        <earliest>-24h@h</earliest>
+        <latest>now</latest>
+      </default>
+    </input>
+    <input type="radio" token="trigger">
+      <label>Trigger Actions</label>
+      <choice value="t">Yes</choice>
+      <choice value="f">No</choice>
+      <default>f</default>
+      <initialValue>f</initialValue>
+    </input>
+  </fieldset>
+  <row>
+    <panel>
+      <table>
+        <title>Rerun Results</title>
+        <search>
+          <query>| rerun regex=$regex$ trigger=$trigger$
+| table _time Search Message MissedRunTime MissedEarliest MissedLatest TriggerActions EventCount ScanCount ResultCount CompletionPercentage Finished</query>
+          <earliest>$time.earliest$</earliest>
+          <latest>$time.latest$</latest>
+          <progress>
+            <set token="sid">$job.sid$</set>
+          </progress>
+        </search>
+        <option name="drilldown">none</option>
+        <option name="refresh.display">progressbar</option>
+      </table>
+    </panel>
+  </row>
+</form>
